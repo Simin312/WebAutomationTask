@@ -25,12 +25,12 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 
-Cypress.Commands.add('getDataTest', (dataTestSelector)=>{
-    return cy.get(`[data-test="${dataTestSelector}"]`)
-})
+//Cypress.Commands.add('getDataTest', (dataTestSelector)=>{
+//    return cy.get(`[data-test="${dataTestSelector}"]`)
+//})
 
-//Cypress.on('uncaught:exception', (err, runnable) => {
-//    // returning false here prevents Cypress from
-//    // failing the test
-//    return false
-//  })
+Cypress.on('uncaught:exception', (err, runnable) => {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false
+  });

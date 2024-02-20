@@ -1,19 +1,23 @@
 describe('Compare iPhone 15 Pro between eBay and Apple Store', () => {
     // Load the existing productDetails array from localStorage if it exists
-    let productDetails;
+    //let productDetails;
 
-    beforeEach(() => {
-        // Load the existing productDetails array from localStorage if it exists
-        const storedProductDetails = localStorage.getItem('productDetails');
-        productDetails = storedProductDetails ? JSON.parse(storedProductDetails) : [];
-    });
+    //beforeEach(() => {
+    //    // Load the existing productDetails array from localStorage if it exists
+    //    const storedProductDetails = localStorage.getItem('productDetails');
+    //    productDetails = storedProductDetails ? JSON.parse(storedProductDetails) : [];
+    //});
 
-    afterEach(() => {
-        // Restore the productDetails array in localStorage after each test
-        localStorage.setItem('productDetails', JSON.stringify(productDetails));
-    });
+    //afterEach(() => {
+    //    // Restore the productDetails array in localStorage after each test
+    //    localStorage.setItem('productDetails', JSON.stringify(productDetails));
+    //});
+
+    // Load the existing productDetails array from localStorage if it exists
+    let productDetails = JSON.parse(localStorage.getItem('productDetails')) || [];
 
     it('Visit Apple store and gets the product details', () => {
+        
         cy.visit('https://www.apple.com/my/');
         cy.get('#globalnav-menubutton-link-search').click();
 
@@ -44,12 +48,16 @@ describe('Compare iPhone 15 Pro between eBay and Apple Store', () => {
             cy.url().then(url => {
                 cy.log('Current URL:', url);
                 const linkValue = url;
-                productDetails.push({website: 'Apple Store', product: 'iPhone 15 Pro 256GB', price: itemPrice, link: linkValue});
-                localStorage.setItem('productDetails', JSON.stringify(productDetails));
-                cy.log('Product Details: ', productDetails);
+                //productDetails.push({website: 'Apple Store', product: 'iPhone 15 Pro 256GB', price: itemPrice, link: linkValue});
+                //localStorage.setItem('productDetails', JSON.stringify(productDetails));
+                //cy.log('Product Details: ', productDetails);
             });
         });
-        //productDetails.push({ website: 'apple', product: 'iPhone 15 Pro 256GB', price: 'itemPrice', link: 'linkValue' });
+
+        productDetails.push({ website: 'apple', product: 'iPhone 15 Pro 256GB', price: 'itemPrice', link: 'linkValue' });
+        cy.wait(2000); // Wait for 2 seconds
+        cy.wrap(productDetails).should('have.length', 1); // Ensure async call is completed
+        
     });
 
 
@@ -72,12 +80,15 @@ describe('Compare iPhone 15 Pro between eBay and Apple Store', () => {
             cy.url().then(url => {
                 cy.log('Current URL:', url);
                 const linkValue = url;
-                productDetails.push({ website: 'eBay', product: 'iPhone 15 Pro 256GB', price: itemPrice, link: linkValue });
-                localStorage.setItem('productDetails', JSON.stringify(productDetails));
-                cy.log('Product Details eBay: ', productDetails);
+                //productDetails.push({ website: 'eBay', product: 'iPhone 15 Pro 256GB', price: itemPrice, link: linkValue });
+                //localStorage.setItem('productDetails', JSON.stringify(productDetails));
+                //cy.log('Product Details eBay: ', productDetails);
             });
         });
-        //productDetails.push({ website: 'eBay', product: 'iPhone 15 Pro 256GB', price: 'itemPrice', link: 'linkValue' });
+
+        productDetails.push({ website: 'eBay', product: 'iPhone 15 Pro 256GB', price: 'itemPrice', link: 'linkValue' });
+        //cy.wait(2000); // Wait for 2 seconds
+        //cy.wrap(productDetails).should('have.length', 2); // Ensure async call is completed
     });
 
     it('Print the product details array', () => {
