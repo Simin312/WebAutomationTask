@@ -1,0 +1,11 @@
+{
+  "name": "cyressautomation",
+  "version": "1.0.0",
+  "description": "Test Automation: Practical and Questionnaire Assignment",
+  "main": "cypress.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sm chan",
+  "license": "ISC"
+}

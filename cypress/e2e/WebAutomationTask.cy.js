@@ -1,5 +1,10 @@
-describe('Compare iPhone 15 Pro between eBay and Lazada', () => {
-    let productDetails = []
+//let productDetails = []
+
+describe('Compare iPhone 15 Pro between eBay and Apple Store', () => {
+    // Load the existing productDetails array from localStorage if it exists
+    
+    let productDetails = JSON.parse(localStorage.getItem('productDetails')) || [];
+    
     it('Visit eBay and gets the product details', () => {
         
         // Visit eBay
@@ -30,7 +35,7 @@ describe('Compare iPhone 15 Pro between eBay and Lazada', () => {
         }) 
     })
 
-    it.only('Visit eBay and gets the product details', () => {
+    it('Visit Apple store and gets the product details', () => {
         cy.visit('https://www.apple.com/my/')
         cy.get('#globalnav-menubutton-link-search').click()
 
@@ -63,37 +68,29 @@ describe('Compare iPhone 15 Pro between eBay and Lazada', () => {
         cy.get('.rc-prices-fullprice[data-autom="full-price"]').first().invoke('text').then((price)=>{
             const itemPrice = price
             cy.log('Price: ', itemPrice)
+            cy.url().then(url => {
+                // Log or use the URL as needed
+                cy.log('Current URL:', url);
+                const linkValue = url
+                productDetails.push({website: 'Apple Store', product: 'iPhone 15 Pro 256GB', price: itemPrice, link: linkValue})
+                cy.log('Product Details: ', productDetails);
+            })
         })
 
-        cy.url().then(url => {
-            // Log or use the URL as needed
-            cy.log('Current URL:', url);
-        })
+        
 
         //TO-DO: clean up the code and arrange the input to the array 
         //      write a sorting function to sort the order by using the price
 
-
-        // div[data-autom='headerPrice'] span[class='rc-prices-fullprice']  div[data-autom='stickyPrice'] span[class='rc-prices-fullprice']
-        // rc-prices-fullprice
-
-
-        //cy.get('.rc-dimension-selector-group.form-selector-group .rc-dimension-selector-row.form-selector .form-selector-label').eq(1).click()
-        
-        
-        //cy.get('.search-box__input--O34g[placeholder="Search in Lazada"]').type('iphone 15 pro 256gb new') // class & attribute
-        //cy.get('#fi-rr-search').click()
-        //cy.get('.MuiInputBase-inputAdornedEnd').type('iphone 15 pro 256gb new').type('{enter}')
-    
-        //cy.contains(/iphone 15 pro/i)
-        //cy.get('.search-box__button--1oH7').click()
-        // Click on a text element within a specific class
-        //cy.get('.jss192').within(()=>{
-        //    cy.get('MuiTypography-root.MuiLink-root.MuiLink-underlineHover.jss196.MuiTypography-colorPrimary').click();
-        //})
-        
-
     })
 
+    it('Print the product details array', () => {
+        // Log the product details array
+        cy.log('Product Details: ', productDetails);
+        //let productDetails = []
+        cy.clearLocalStorage()
+    });
+    
+    
 
   })
