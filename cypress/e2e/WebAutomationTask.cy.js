@@ -87,8 +87,9 @@ describe('Compare iPhone 15 Pro between eBay and Apple Store', () => {
     it('Print the product details array', () => {
         // Log the product details array
         cy.log('Product Details: ', productDetails);
+        
         //let productDetails = []
-        cy.clearLocalStorage()
+        //cy.clearLocalStorage()
     });
     
     

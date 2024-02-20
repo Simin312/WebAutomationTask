@@ -1,3 +1,4 @@
 {
-    "experimentalOriginDependencies": true
+    "experimentalOriginDependencies": true,
+    "experimentalStudio": true
 }
