@@ -67,25 +67,22 @@ Cypress is a next genaration front end testing tool built for the modern web. Vy
     1. Go to "https://nodejs.org/en/download" download the Windows installer and install it.
     2. Open command prompt and type "node --version" and verify the nodejs version to confirm nodejs is installed in your Windows machine. 
 2. Download & install visual studio code.
-    1. Got o "https://code.visualstudio.com/download" download the Windows installer and install it.
-3. Create a folder for the project 
-    1. Open git bash
-    2. type git init
-    3. clone the project
-4. Install Cypress
+    1. Got to "https://code.visualstudio.com/download" download the Windows installer and install it.
+
+# Clone and run the test
+1. Create a folder for the project 
+    1. Open git bash.
+    2. type git init.
+    3. clone the project.
+2. Install Cypress
     1. Open visual studio code.
-    2. Go to terminal and type "npm install cypress"
-5. Start Cypress
-    1. Go to terminal and type "npx cypress open"
-
-
-# Overview & Install
-1. install Cypress via npm:
-    cd /your/project/path
-    npm install cypress --save-dev
-2. Cypress open using npx:
-    npx cypress open
-
+    2. Go to terminal and type "npm install cypress".
+3. Start Cypress
+    1. Go to terminal and type "npx cypress open".
+4. Run Test in Cypress.
+    1. Select E2E Testing.
+    2. Select Chrome and press Start E2E Testing in Chrome.
+    3. Select Specs and press WebAutomationTaskV2.
 
 # Testing Fundamentals
 1. Describe blocks
