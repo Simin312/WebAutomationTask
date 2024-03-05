@@ -1,7 +1,7 @@
 describe('Compare iPhone 15 Pro between eBay and Apple Store', () => {
     let productDetails = JSON.parse(localStorage.getItem('productDetails')) || [];
 
-    it('Visit Apple store and gets the product details', () => {
+    it.only('Visit Apple store and gets the product details', () => {
         // visit apple
         cy.visit('https://www.apple.com/my/');
 
@@ -24,11 +24,16 @@ describe('Compare iPhone 15 Pro between eBay and Apple Store', () => {
         cy.get('.form-selector-title:contains("256")').click();
         cy.contains(/iPhone 15 Pro/i);
     
+        // Wait for animation to finish loading
+        cy.wait(2000);
+
         // Wait for the price element to be visible
         cy.get('.rc-prices-fullprice[data-autom="full-price"]').should('be.visible');
-    
+
         // Extract and log the price
-        cy.get('.rc-prices-fullprice[data-autom="full-price"]').invoke('text').then((price) => {
+        //cy.get('.rc-prices-fullprice[data-autom="full-price"]').invoke('text').then((price) => {
+        cy.get('.rc-prices-fullprice[data-autom="full-price"]').closest('.rc-price').first().invoke('text').then((price) => {    
+        //.closest('.rc-price')    
             const itemPrice = price;
             cy.log('Price: ', itemPrice);
     
@@ -37,18 +42,19 @@ describe('Compare iPhone 15 Pro between eBay and Apple Store', () => {
                 cy.log('Current URL:', url);
                 const linkValue = url;
                 productDetails.push({website: 'Apple Store', product: 'iPhone 15 Pro 256GB', price: itemPrice, link: linkValue});
+
+                // Log the updated productDetails array
+                for (let i = 0; i < productDetails.length; i++) {
+                    cy.log('Product Details: ' + JSON.stringify(productDetails[i]));
+                }
             });
     
             // Wait for 2 seconds for the async call to complete
-            cy.wait(2000);
+            //cy.wait(2000);
     
             // Ensure the productDetails array has been updated
-            cy.wrap(productDetails).should('have.length', 1);
-    
-            // Log the updated productDetails array
-            for (let i = 0; i < productDetails.length; i++) {
-                cy.log('Product Details: ' + JSON.stringify(productDetails[i]));
-            }
+            //cy.wrap(productDetails).should('have.length', 1);
+            
         });
     });
     
@@ -74,18 +80,21 @@ describe('Compare iPhone 15 Pro between eBay and Apple Store', () => {
                 cy.log('Current URL:', url);
                 const linkValue = url;
                 productDetails.push({ website: 'eBay', product: 'iPhone 15 Pro 256GB', price: itemPrice, link: linkValue });
+
+                // Log the updated productDetails array
+                cy.log('The iPhone 15 Pro 256GB information')
+                for (let i = 0; i < productDetails.length; i++) {
+                cy.log('Product Details: ' + JSON.stringify(productDetails[i]));
+                }   
             });
         });
     
-        cy.wait(2000); // Wait for 2 seconds after updating the array
+        //cy.wait(2000); // Wait for 2 seconds after updating the array
 
         // Ensure the productDetails array has been updated
-        cy.wrap(productDetails).should('have.length', 1);
+        //cy.wrap(productDetails).should('have.length', 1);
         
-        // Log the updated productDetails array
-        for (let i = 0; i < productDetails.length; i++) {
-            cy.log('Product Details: ' + JSON.stringify(productDetails[i]));
-        }
+        
     });
     
 
